@@ -16,6 +16,7 @@ A free, lightweight Roku app for watching [Kick](https://kick.com) live streams 
 - **Live chat beside the video.** It shows streamer-colored usernames and refreshes every few seconds. It's read-only.
 - **Full screen toggle.** Hide the chat with one button.
 - **Rewind.** Jump back into the live stream, using Kick's live recording, and move through it with Roku's normal seek bar.
+- **LIVE badge.** A red LIVE badge shows when you're watching live. When you rewind it turns gray and shows how far behind you are. Select it to jump back to live.
 - **Fast start.** The whole app is about 115 KB, and the splash screen has no added delay.
 
 ## Remote controls
@@ -29,6 +30,7 @@ A free, lightweight Roku app for watching [Kick](https://kick.com) live streams 
 | Watching live | ✱ | Options: rewind, chat, quality |
 | Watching live | Back | Return to the list |
 | Rewinding | Left / Right, OK | Seek, pause |
+| Rewinding | Down, then OK on the LIVE badge | Return to live |
 | Rewinding | Back or ✱ → Back to LIVE | Return to live |
 
 The Roku mobile app works as the remote. Its keyboard button lets you type or paste channel names from your phone.

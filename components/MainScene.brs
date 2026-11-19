@@ -16,10 +16,17 @@ sub init()
     m.optionsPanel = m.top.findNode("optionsPanel")
     m.optionsList = m.top.findNode("optionsList")
     m.refreshTimer = m.top.findNode("refreshTimer")
+    m.liveBadge = m.top.findNode("liveBadge")
+    m.badgeRing = m.top.findNode("badgeRing")
+    m.badgeBg = m.top.findNode("badgeBg")
+    m.badgeDot = m.top.findNode("badgeDot")
+    m.badgeText = m.top.findNode("badgeText")
+    m.badgeFocused = false
 
     m.list.observeField("itemSelected", "onItemSelected")
     m.optionsList.observeField("itemSelected", "onOptionSelected")
     m.video.observeField("state", "onVideoState")
+    m.video.observeField("position", "onVideoPosition")
     m.toastTimer.observeField("fire", "hideToast")
     m.refreshTimer.observeField("fire", "onRefreshTimer")
 
@@ -297,7 +304,7 @@ end sub
 
 sub updateInfoHint()
     if m.mode = "rewind"
-        m.infoSub.text = "REWIND  ·  Left/Right = move  ·  OK = pause  ·  Up = full screen  ·  * = back to live"
+        m.infoSub.text = "REWIND  ·  Left/Right = move  ·  OK = pause  ·  Down then OK = go LIVE  ·  Up = full screen"
     else
         m.infoSub.text = m.infoBase + "      Up = full screen  ·  Left = rewind  ·  * = options"
     end if
@@ -340,6 +347,8 @@ sub playStream(url as string, label as string)
     m.video.visible = true
     m.video.control = "play"
     m.video.setFocus(true)
+    m.badgeFocused = false
+    updateBadge()
     if m.mode = "rewind"
         showToast("Rewind · " + label)
     else
@@ -375,6 +384,66 @@ sub onVideoState()
         m.statusLabel.text = "Stream ended."
         stopVideo()
     end if
+end sub
+
+' ---------- LIVE badge ----------
+function fmtTime(sec as dynamic) as string
+    if sec = invalid or sec < 0 then sec = 0
+    t = Int(sec)
+    h = Int(t / 3600)
+    mins = Int((t mod 3600) / 60)
+    secs = t mod 60
+    ss = secs.ToStr()
+    if secs < 10 then ss = "0" + ss
+    if h > 0
+        mm = mins.ToStr()
+        if mins < 10 then mm = "0" + mm
+        return h.ToStr() + ":" + mm + ":" + ss
+    end if
+    return mins.ToStr() + ":" + ss
+end function
+
+sub updateBadge()
+    if not m.video.visible
+        m.liveBadge.visible = false
+        return
+    end if
+    m.liveBadge.visible = true
+    if m.mode = "live"
+        m.badgeDot.blendColor = "0xFF4655FF"
+        m.badgeText.text = "LIVE"
+        w = 134
+    else
+        m.badgeDot.blendColor = "0x9AA3AAFF"
+        behind = 0
+        if m.video.duration <> invalid and m.video.position <> invalid then behind = m.video.duration - m.video.position
+        m.badgeText.text = "GO LIVE   -" + fmtTime(behind)
+        w = 330
+    end if
+    m.badgeBg.width = w
+    m.badgeRing.width = w + 12
+    m.badgeRing.visible = m.badgeFocused
+    if m.badgeFocused
+        m.badgeBg.color = "0xFFFFFFFF"
+        m.badgeText.color = "0x0E1114FF"
+    else
+        m.badgeBg.color = "0x000000B3"
+        m.badgeText.color = "0xFFFFFFFF"
+    end if
+end sub
+
+sub onVideoPosition()
+    if m.mode = "rewind" then updateBadge()
+end sub
+
+sub focusBadge(isOn as boolean)
+    m.badgeFocused = isOn
+    if isOn
+        m.liveBadge.setFocus(true)
+    else
+        m.video.setFocus(true)
+    end if
+    updateBadge()
 end sub
 
 ' ---------- rewind ----------
@@ -426,6 +495,8 @@ sub stopVideo()
     m.optionsPanel.visible = false
     m.infoBar.visible = false
     m.chatPanel.visible = false
+    m.liveBadge.visible = false
+    m.badgeFocused = false
     stopChat()
     hideToast()
     m.list.setFocus(true)
@@ -610,6 +681,19 @@ function onKeyEvent(key as string, press as boolean) as boolean
     end if
 
     if m.video.visible
+        if m.badgeFocused
+            if key = "OK"
+                m.badgeFocused = false
+                goLive()
+            else
+                focusBadge(false)
+            end if
+            return true
+        end if
+        if m.mode = "rewind" and key = "down"
+            focusBadge(true)
+            return true
+        end if
         if key = "back"
             if m.mode = "rewind"
                 goLive()

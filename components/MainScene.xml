@@ -13,6 +13,13 @@
 
         <Video id="video" width="1920" height="1080" visible="false" />
 
+        <Group id="liveBadge" visible="false" translation="[32,32]" focusable="true">
+            <Rectangle id="badgeRing" width="146" height="68" translation="[-6,-6]" color="0xFFFFFFFF" visible="false" />
+            <Rectangle id="badgeBg" width="134" height="56" color="0x000000B3" />
+            <Poster id="badgeDot" uri="pkg:/images/dot.png" width="18" height="18" translation="[18,19]" blendColor="0xFF4655FF" />
+            <Label id="badgeText" translation="[46,0]" width="440" height="56" vertAlign="center" font="font:SmallBoldSystemFont" color="0xFFFFFFFF" text="LIVE" />
+        </Group>
+
         <Group id="infoBar" visible="false" translation="[0,810]">
             <Rectangle width="1440" height="270" color="0x0E1114FF" />
             <Poster id="infoDot" uri="pkg:/images/dot.png" width="20" height="20" blendColor="0xFF4655FF" translation="[48,46]" />
@@ -29,7 +36,7 @@
             <Label id="chatStatus" translation="[28,110]" width="424" wrap="true" font="font:SmallestSystemFont" color="0x8A949CFF" />
         </Group>
 
-        <Group id="toast" visible="false" translation="[60,60]">
+        <Group id="toast" visible="false" translation="[32,112]">
             <Rectangle width="560" height="80" color="0x000000CC" />
             <Label id="toastText" translation="[30,0]" width="500" height="80" vertAlign="center" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
         </Group>
