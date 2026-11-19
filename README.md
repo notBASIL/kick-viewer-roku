@@ -6,6 +6,10 @@ A free, lightweight Roku app for watching [Kick](https://kick.com) live streams 
 
 > **Unofficial.** This app isn't made by or affiliated with Kick or Roku. It reads the same public endpoints the kick.com website uses, so it may stop working if Kick changes its site. It's meant for personal use on your own TV.
 
+## Download
+
+**[⬇ Download KickViewer.zip (v1.5)](https://github.com/notBASIL/kick-viewer-roku/raw/main/dist/KickViewer.zip)**, a ready-to-install build. Don't unzip it; upload it as is (see *Install on your Roku* below).
+
 ## Features
 
 - **Your channels in one place.** Add streamers once and they're saved on the TV. You can paste many names at once, separated by commas. Links like `kick.com/name` work too.
@@ -38,7 +42,7 @@ The Roku mobile app works as the remote. Its keyboard button lets you type or pa
 ## Install on your Roku
 
 1. **Enable developer mode.** On the remote, press **Home ×3, Up ×2, Right, Left, Right, Left, Right**. Note the IP address shown, choose **Enable installer and restart**, accept the agreement, and set a password.
-2. **Build the zip** from this folder (or download it from Releases):
+2. **Get the zip.** [Download it](https://github.com/notBASIL/kick-viewer-roku/raw/main/dist/KickViewer.zip), or build it from this folder:
    ```bash
    ./build.sh        # creates KickViewer.zip
    ```
