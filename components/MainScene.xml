@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MainScene" extends="Scene">
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    <children>
+        <Rectangle width="1920" height="1080" color="0x0E1114FF" />
+        <Poster uri="pkg:/images/logo_small.png" width="80" height="80" translation="[110,52]" />
+        <Label text="Kick Viewer" translation="[205,68]" font="font:LargeBoldSystemFont" color="0x53FC18FF" />
+        <Label text="OK = watch      * = remove channel      While watching: Up = full screen, Left = rewind, * = options" translation="[120,150]" font="font:SmallSystemFont" color="0xAAAAAAFF" />
+        <MarkupList id="channelList" translation="[120,220]" itemComponentName="ChannelItem" itemSize="[900,84]" itemSpacing="[0,10]" numRows="8" drawFocusFeedback="false" vertFocusAnimationStyle="floatingFocus" />
+        <Label id="status" translation="[1100,230]" width="700" wrap="true" font="font:MediumSystemFont" color="0xFFFFFFFF" />
+        <Label id="lastUpdate" translation="[1100,960]" width="700" font="font:SmallestSystemFont" color="0x6A747CFF" />
+        <Timer id="refreshTimer" duration="60" repeat="true" />
+
+        <Video id="video" width="1920" height="1080" visible="false" />
+
+        <Group id="infoBar" visible="false" translation="[0,810]">
+            <Rectangle width="1440" height="270" color="0x0E1114FF" />
+            <Poster id="infoDot" uri="pkg:/images/dot.png" width="20" height="20" blendColor="0xFF4655FF" translation="[48,46]" />
+            <Label id="infoName" translation="[84,30]" width="1300" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+            <Label id="infoTitle" translation="[48,90]" width="1340" maxLines="2" wrap="true" font="font:SmallSystemFont" color="0xC8D0D6FF" />
+            <Label id="infoSub" translation="[48,200]" width="1340" font="font:SmallestSystemFont" color="0x8A949CFF" />
+        </Group>
+
+        <Group id="chatPanel" visible="false" translation="[1440,0]">
+            <Rectangle width="480" height="1080" color="0x15191DFF" />
+            <Rectangle width="480" height="84" color="0x0E1114FF" />
+            <Label text="Live chat" translation="[28,22]" font="font:MediumBoldSystemFont" color="0x53FC18FF" />
+            <Group id="chatRows" />
+            <Label id="chatStatus" translation="[28,110]" width="424" wrap="true" font="font:SmallestSystemFont" color="0x8A949CFF" />
+        </Group>
+
+        <Group id="toast" visible="false" translation="[60,60]">
+            <Rectangle width="560" height="80" color="0x000000CC" />
+            <Label id="toastText" translation="[30,0]" width="500" height="80" vertAlign="center" font="font:MediumBoldSystemFont" color="0xFFFFFFFF" />
+        </Group>
+        <Timer id="toastTimer" duration="3" />
+
+        <Group id="optionsPanel" visible="false" translation="[1320,120]">
+            <Rectangle width="560" height="840" color="0x111417F2" />
+            <Label text="Options" translation="[40,30]" font="font:MediumBoldSystemFont" color="0x53FC18FF" />
+            <LabelList id="optionsList" translation="[30,110]" itemSize="[500,64]" numRows="10" color="0xDDDDDDFF" focusedColor="0x000000FF" />
+        </Group>
+    </children>
+</component>

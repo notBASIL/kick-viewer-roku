@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="KickTask" extends="Task">
+    <interface>
+        <field id="channel" type="string" />
+        <field id="result" type="assocarray" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/KickApi.brs" />
+    <script type="text/brightscript" uri="pkg:/components/KickTask.brs" />
+</component>

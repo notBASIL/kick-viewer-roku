@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ChannelItem" extends="Group">
+    <interface>
+        <field id="itemContent" type="node" onChange="onContent" />
+        <field id="focusPercent" type="float" onChange="onFocus" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/ChannelItem.brs" />
+    <children>
+        <Rectangle id="base" width="900" height="84" color="0x171B1FFF" />
+        <Rectangle id="bg" width="900" height="84" color="0xFFFFFFFF" opacity="0" />
+        <Poster id="dot" uri="pkg:/images/dot.png" width="20" height="20" translation="[28,16]" />
+        <Label id="name" translation="[64,6]" width="800" font="font:MediumBoldSystemFont" color="0xEEEEEEFF" />
+        <Label id="sub" translation="[64,46]" width="810" font="font:SmallestSystemFont" color="0x8A949CFF" />
+    </children>
+</component>
